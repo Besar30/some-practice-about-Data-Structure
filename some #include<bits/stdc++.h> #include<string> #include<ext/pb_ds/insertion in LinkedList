@@ -1,0 +1,82 @@
+struct node{
+    int data;
+    node* next;
+    node(int val){
+        data=val;
+        next= nullptr;
+    }
+    node(int val,node*n){
+        data=val;
+        next= n;
+    }
+};
+node* create(vector<int>&v){
+    if(v.size()==0)return nullptr;
+    node* head= new node(v[0]);
+    node* temp=head;
+    for(int i=1;i<v.size();i++){
+        node* a=new node(v[i]);
+        temp->next=a;
+        temp=a;
+    }
+    return head;
+}
+node* inserthead(node*head,int val){
+    return new node(val,head);
+}
+node* insettail(node*head,int val){
+    if(head==NULL)return new node(val);
+    node* temp=head;
+    while(temp->next){
+        temp=temp->next;
+    }
+    node* x=new node(val);
+    temp->next=x;
+    return head;
+}
+node* insertbeforeval(node*head,int val,int x){
+    node* temp=head;
+    if(head==NULL)return nullptr;
+    if(temp->data==val){
+        node*a=new node(x);
+        a->next=head;
+        return a;
+    }
+    while(temp->next){
+        if(temp->next->data==val){
+            node*a=new node(x);
+            a->next=temp->next;
+            temp->next=a;
+            break;
+        }
+        temp=temp->next;
+    }
+    return head;
+}
+void print(node* head){
+    node* temp=head;
+    while(temp){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+void interstaller(){
+    vector<int>v={1,2,3,4,5};
+    node *head= create(v);
+    head= insertbeforeval(head,22,100);
+    print(head);
+}
+int32_t main(){
+#ifndef ONLINE_JUDGE
+    freopen("Input.txt","r",stdin);
+    freopen("Output.txt","w",stdout);
+#endif
+    Beso;
+    int T=1;
+//    cin>>T;
+    while(T--)
+    {
+        interstaller();
+    }
+    // **********************************************************************************************
+}
