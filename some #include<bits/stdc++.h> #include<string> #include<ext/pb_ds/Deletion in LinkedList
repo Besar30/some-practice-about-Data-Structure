@@ -1,0 +1,104 @@
+#include<bits/stdc++.h>
+#include<string>
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+using namespace std;
+struct node{
+    int data;
+    node* next;
+    node(int val){
+        data=val;
+        next= nullptr;
+    }
+};
+node* create(vector<int>&v){
+    node* head= new node(v[0]);
+    node* temp=head;
+    for(int i=1;i<v.size();i++){
+        node* a=new node(v[i]);
+        temp->next=a;
+        temp=a;
+    }
+    return head;
+}
+node* delhead(node*head){
+    node*temp=head;
+    if(temp==NULL)return NULL;
+    temp=temp->next;
+    delete head;
+    return temp;
+}
+node* deltail(node*head){
+    node*temp=head;
+    while(temp->next->next!=NULL){
+        temp=temp->next;
+    }
+    delete temp->next;
+    temp->next=NULL;
+    return head;
+}
+node* delk(node*head,int k){
+    node*temp=head;
+    int cnt=0;
+    if(k==1){
+        temp=temp->next;
+        delete head;
+        return temp;
+    }
+    node*prev=NULL;
+    while(temp){
+        cnt++;
+        if(cnt==k){
+            prev->next=prev->next->next;
+            delete temp;
+            break;
+        }
+        prev=temp;
+        temp=temp->next;
+    }
+    return head;
+}
+node* delval(node*head,int val){
+    node*temp=head;
+    node*prev=NULL;
+    while(temp){
+        if(temp->data==val){
+            if(prev==NULL){
+               return head->next;
+            }
+            prev->next=prev->next->next;
+            delete temp;
+            break;
+        }
+        prev=temp;
+        temp=temp->next;
+    }
+    return head;
+}
+void print(node* head){
+    node* temp=head;
+    while(temp){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+void interstaller(){
+    vector<int>v={1,2,3,4,5};
+    node *head= create(v);
+    head= delval(head,5);
+    print(head);
+}
+int32_t main(){
+//#ifndef ONLINE_JUDGE
+//    freopen("Input.txt","r",stdin);
+//    freopen("Output.txt","w",stdout);
+//#endif
+//    Beso;
+    int T=1;
+//    cin>>T;
+    while(T--)
+    {
+        interstaller();
+    }
+    // **********************************************************************************************
+}
