@@ -1,0 +1,42 @@
+struct node{
+    int data;
+    node* next;
+    node* back;
+    node(int val){
+        data=val;
+        next= nullptr;
+        back= nullptr;
+    }
+    node(int val,node*n,node*nn){
+        data=val;
+        next= n;
+        back=nn;
+    }
+};
+node* inserthead(node*head,int val){
+    node*a=new node(val,head, nullptr);
+    return a;
+}
+node*inserttail(node*head,int val){
+    node*temp=head;
+    while (temp->next){
+        temp=temp->next;
+    }
+    node*a=new node(val);
+    temp->next=a;
+    a->back=temp;
+    return head;
+}
+void print(node* head){
+    node* temp=head;
+    while(temp){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+void interstaller(){
+    vector<int>v={1,2,3,4,5};
+    node *head= create(v);
+    head= inserttail(head,100);
+    print(head);
+}
