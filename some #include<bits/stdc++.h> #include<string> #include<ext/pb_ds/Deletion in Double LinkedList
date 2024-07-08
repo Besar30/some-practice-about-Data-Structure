@@ -1,0 +1,110 @@
+struct node{
+    int data;
+    node* next;
+    node* back;
+    node(int val){
+        data=val;
+        next= nullptr;
+        back= nullptr;
+    }
+    node(int val,node*n,node*nn){
+        data=val;
+        next= n;
+        back=nn;
+    }
+};
+node* create(vector<int>&v){
+    if(v.size()==0)return NULL;
+    node* head=new node(v[0]);
+    node* temp=head;
+    for(int i=1;i<v.size();i++){
+        node* a=new node(v[i]);
+        temp->next=a;
+        a->back=temp;
+        temp=a;
+    }
+    return head;
+}
+node* delhead(node*head){
+    if(head== nullptr||head->next== nullptr)return nullptr;
+    node*temp=head->next;
+    head->next=nullptr;
+    temp->back= nullptr;
+    delete head;
+    return temp;
+}
+node*deltail(node*head){
+    if(head== nullptr||head->next== nullptr)return nullptr;
+    node*temp=head;
+    while(temp->next){
+        temp=temp->next;
+    }
+    node*a=temp->back;
+    a->next= nullptr;
+    temp->back= nullptr;
+    delete temp;
+    return head;
+}
+node* delkthelement(node* head,int k){
+    int con=0;
+    if(head== nullptr||head->next== nullptr)return nullptr;
+    node*temp=head;
+    while(temp->next){
+        con++;
+        if(con==k)break;
+        temp=temp->next;
+    }
+    if(temp->back==NULL){
+        node*x=temp->next;
+        temp->next=NULL;
+        delete temp;
+        return x;
+    }
+    node*a=temp->back;
+    if(temp->next==NULL){
+        a->next=NULL;
+        temp->back=NULL;
+        delete temp;
+        return head;
+    }
+    a->next=temp->next;
+    temp->back=NULL;
+    temp->next->back=a;
+    temp->next=NULL;
+    delete temp;
+    return head;
+}
+node* delval(node*head,int val){
+    node*temp=head;
+    while(temp){
+        if(temp->data==val){
+            if(temp->back==NULL){
+                return delhead(head);
+            }
+            else if(temp->next==NULL){
+                return deltail(head);
+            }
+            node*a=temp->back;
+            temp->back=NULL;
+            a->next=temp->next;
+            temp->next=NULL;
+            delete temp;
+            break;
+        }
+        temp=temp->next;
+    }
+    return head;
+}
+void print(node* head){
+    node* temp=head;
+    while(temp){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+void interstaller(){
+    vector<int>v={1,2,3,4,5};
+    node *head= create(v);
+    head= delval(head,412);
+    print(head);
+}
