@@ -1,0 +1,51 @@
+struct node{
+    int data;
+    node* next;
+    node(int val){
+        data=val;
+        next= nullptr;
+    }
+};
+void push(int val,node* &top,node*&prev){
+    node*temp=new node(val);
+    if(top== nullptr){
+      top=temp;
+      prev=temp;
+    }
+    else{
+        prev->next=temp;
+        prev=temp;
+    }
+}
+void pop(node* &top){
+    if(top->next== nullptr)top=NULL;
+    else{
+        node*temp=top;
+        top=top->next;
+        temp->next=NULL;
+        delete temp;
+    }
+}
+bool isempty(node*top){
+    if(top)return false;
+    return true;
+}
+void print(node*top){
+    while(top){
+        cout<<top->data<<" ";
+        top=top->next;
+    }
+}
+void interstaller(){
+    vector<int>v={1,2,3,4,5};
+    node*top=NULL;
+    node*prev=NULL;
+    for(int i=0;i<v.size();i++){
+        push(v[i],top,prev);
+    }
+    pop(top);
+    print(top);
+    cout<<endl;
+    if(isempty(top))cout<<"queue is empty"<<endl;
+    else cout<<"queue is not empty"<<endl;
+}
