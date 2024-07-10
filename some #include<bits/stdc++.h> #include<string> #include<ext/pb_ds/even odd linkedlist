@@ -1,0 +1,75 @@
+struct node{
+    int data;
+    node*next;
+    node(int val){
+        data=val;
+        next= nullptr;
+    }
+};
+node* create(vector<int>&v){
+    node*head=new node(v[0]);
+    node*temp=head;
+    for(int i=1;i<v.size();i++){
+        node*a=new node(v[i]);
+        temp->next=a;
+        temp=a;
+    }
+    return head;
+}
+node* oddandeven(node*&head){
+    node*temp=head;
+    node*headodd= nullptr;
+    node*headeven= nullptr;
+    node*x= nullptr;
+    node*y= nullptr;
+    int con=1;
+    node*lasteven= nullptr;
+    while(temp){
+        if(con%2==0){
+            if(headeven== nullptr){
+                node*a=new node(temp->data);
+                headeven=a;
+                x=headeven;
+                lasteven=x;
+            }
+            else{
+                node*a=new node(temp->data);
+                x->next=a;
+                x=a;
+                lasteven=x;
+            }
+        }
+        else{
+            if(headodd== nullptr){
+                node*a=new node(temp->data);
+                headodd=a;
+                y=a;
+            }
+            else{
+                node*a=new node(temp->data);
+                y->next=a;
+                y=a;
+            }
+        }
+        node*yy=temp;
+        temp=temp->next;
+        yy->next=nullptr;
+        delete yy;
+        con++;
+    }
+    lasteven->next=headodd;
+    return headeven;
+}
+void print(node*head){
+    while(head){
+        cout<<head->data<<" ";
+        head=head->next;
+    }
+}
+void interstaller(){
+    vector<int>v{1,2,3,4,5,6,7,8};
+    node*head= create(v);
+    print(head);
+    cout<<endl;
+    print(oddandeven(head));
+}
