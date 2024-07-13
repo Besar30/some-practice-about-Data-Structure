@@ -1,0 +1,71 @@
+struct node{
+    int data;
+    node*next;
+    node(int val){
+        data=val;
+        next= nullptr;
+    }
+};
+node* create(vector<int>&v){
+    node*head=new node(v[0]);
+    node*temp=head;
+    for(int i=1;i<v.size();i++){
+        node*a=new node(v[i]);
+        temp->next=a;
+        temp=a;
+    }
+    return head;
+}
+node* reverse(node*head){
+    node*prev= nullptr;
+    while(head){
+        node*a=head->next;
+        head->next=prev;
+        prev=head;
+        head=a;
+    }
+    return prev;
+}
+bool isplandrom(node*head){
+    node*slow=head;
+    node*fast=head;
+    while(fast->next&&fast->next->next){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    //even
+    if(fast->next){
+        node*a= reverse(slow->next);
+        while(a){
+            if(head->data!=a->data)return false;
+            head=head->next;
+            a=a->next;
+        }
+        reverse(a);
+        slow->next=a;
+        return true;
+    }//odd
+    else{
+        node*a= reverse(slow->next);
+        while(a){
+            if(head->data!=a->data)return false;
+            head=head->next;
+            a=a->next;
+        }
+        reverse(a);
+        slow->next=a;
+        return true;
+    }
+}
+void print(node*head){
+    while(head){
+        cout<<head->data<<" ";
+        head=head->next;
+    }
+}
+void interstaller(){
+    vector<int>v={1};
+    node* head= create(v);
+    if(isplandrom(head))cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
+}
